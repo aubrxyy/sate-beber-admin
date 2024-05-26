@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Category</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<!-- NAV -->
+<div class="bg-lgreen left-0 min-w-48 max-w-[16%] min-h-screen h-full flex flex-col fixed overflow-y-auto">
+    <div class="logo mb-4">
+        <a href="/"><img src="/assets/logo.png" alt="logo"></a>
+    </div>
+    <div class="nav league bg-dgreen">
+        <ul>
+            <li>
+                <a th:href="@{/menus}"
+                   class="flex flex-row h-16 items-center pl-4 hover:bg-green-900 transition-all">
+                    <img src="/assets/dashboard.svg" alt="db" width="25px">
+                    <p class="text-white pl-2 text-xl">Products</p>
+                </a>
+            </li>
+            <li th:each="category: ${categories}">
+                <a th:href="@{/categories/{categoryId}(categoryId=${category.id})}"
+                   class="flex flex-row h-16 items-center pl-5 hover:bg-green-900 transition-all">
+                    <img th:src="${category.imageUrl}" alt="db" style="width: 25px; height: 25px; border-radius: 25%; object-fit: cover;">
+                    <p class="text-white pl-3 text-xl" th:text="${category.title}"></p>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/categories/new}"
+                   class="flex flex-row h-16 items-center pl-4 hover:bg-green-900 transition-all">
+                    <img src="/assets/add.svg" alt="db" width="25px">
+                    <p class="text-white pl-2 text-xl">Tambah kategori</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- HEADER -->
+<div class="ml-48">
+    <div class="shadow-md w-full pl-8 flex flex-row items-center justify-between h-16 text-black mb-8">
+        <p class="league text-2xl pl-8 xl:pl-24">
+            Product
+        </p>
+        <div class="flex flex-row pr-8">
+            <p class="league text-md pr-8">
+                Admin Panel
+            </p>
+            <img src="/assets/profile.svg" width="20px" alt="user">
+        </div>
+    </div>
+    <div class="pl-8 xl:pl-32 pr-8 mb-12">
+        <div class="flex flex-row justify-between">
+            <div class="relative">
+                <img src="/assets/search.svg" alt="search" class="relative z-10 top-4 left-2" width="18px">
+                <form th:action="@{/menus/search}" method="get">
+                    <input type="search" name="query" title="search" placeholder="Search..." class="pl-8 bg-white rounded-lg border-solid border-gray-400 border w-64 h-12 absolute left-0 top-0"/>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="pl-8 xl:pl-32 pr-8 flex flex-row gap-4 flex-wrap">
+        <!-- CONTAINER -->
+        <div th:each="menu: ${menus}" class="bg-lime rounded-md w-[18.75rem] h-52 shadow-md league">
+            <img th:src="${menu.imageUrl}" th:alt="${menu.title}" class="h-36 w-full object-cover rounded-t-md">
+            <div class="flex flex-row justify-between">
+                <div class="relative">
+                    <p th:text="${menu.title}" class="pt-1 pl-4 text-black text-2xl max-w-[15ch] text-nowrap relative overflow-hidden text-ellipsis whitespace-nowrap">
+                    </p>
+                    <p class="pl-4 text-black text-sm">
+                        Rp. <span th:text="${menu.price}"></span>
+                    </p>
+                </div>
+                <div class="pr-2 flex flex-row items-center gap-2">
+                    <a th:href="@{/menus/{menuId}/edit(menuId=${menu.id})}" class="relative right-0 top-0 bg-green-600 rounded-md size-8 flex items-center justify-center">
+                        <img src="/assets/edit.svg" alt="edit" width="15px">
+                    </a>
+                    <a th:href="@{/menus/{menuId}/delete(menuId=${menu.id})}" class="relative right-0 top-0 bg-red-500 rounded-md size-8 flex items-center justify-center">
+                        <img src="/assets/delete.svg" alt="delete" width="15px">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>
+

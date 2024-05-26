@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Category</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<!-- NAV -->
+<div class="bg-lgreen left-0 min-w-48 max-w-[16%] min-h-screen h-full flex flex-col fixed overflow-y-auto">
+    <div class="logo mb-4">
+        <a href="/"><img src="/assets/logo.png" alt="logo"></a>
+    </div>
+    <div class="nav league bg-dgreen">
+        <ul>
+            <li>
+                <a th:href="@{/menus}"
+                   class="flex flex-row h-16 items-center pl-4 hover:bg-green-900 transition-all">
+                    <img src="/assets/dashboard.svg" alt="db" width="25px">
+                    <p class="text-white pl-2 text-xl">Products</p>
+                </a>
+            </li>
+            <li th:each="category: ${categories}">
+                <a th:href="@{/categories/{categoryId}(categoryId=${category.id})}"
+                   class="flex flex-row h-16 items-center pl-5 hover:bg-green-900 transition-all">
+                    <img th:src="${category.imageUrl}" alt="db" style="width: 25px; height: 25px; border-radius: 25%; object-fit: cover;">
+                    <p class="text-white pl-3 text-xl" th:text="${category.title}"></p>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/categories/new}"
+                   class="flex flex-row h-16 items-center pl-4 hover:bg-green-900 transition-all">
+                    <img src="/assets/add.svg" alt="db" width="25px">
+                    <p class="text-white pl-2 text-xl">Tambah kategori</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- HEADER -->
+<div class="ml-48">
+    <div class="shadow-md w-full pl-8 flex flex-row items-center justify-between h-16 text-black mb-8">
+        <p class="league text-2xl pl-8 xl:pl-24">
+            New Category
+        </p>
+        <div class="flex flex-row pr-8">
+            <p class="league text-md pr-8">
+                Admin Panel
+            </p>
+            <img src="/assets/profile.svg" width="20px" alt="user">
+        </div>
+    </div>
+    <div class="pl-8 xl:pl-32 pr-8 mb-4">
+        <form th:action="@{/categories/new}" th:object="${category}" enctype="multipart/form-data" method="post">
+            <div class="flex flex-row justify-end">
+                <div class="bg-dgreen rounded-lg flex justify-center">
+                    <button type="submit" class="flex flex-row h-12 px-8 rounded-lg items-center hover:bg-lgreen text-white text-xl hover:text-dgreen hover:ring-inset hover:ring-dgreen hover:ring-2 transition-all text-nowrap justify-center">
+                        Create new
+                    </button>
+                </div>
+            </div>
+            <div>
+                <label for="title" class="text-lg">Category name</label>
+                <div class="mt-2">
+                    <div class="relative">
+                        <input type="text" id="title" name="title" th:field="*{title}" placeholder="Nama kategori..."
+                               class="px-2 bg-white rounded-lg border-solid border-gray-400 border min-w-48 w-3/4 h-12" />
+                    </div>
+                    <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-red-600"></p>
+                </div>
+                <br>
+                <label for="image" class="text-lg">Gambar kategori</label>
+                <div class="mt-2">
+                    <div class="relative">
+                        <input type="file" accept="image/*" id="image" name="image" placeholder="Gambar kategori"
+                               class="px-2 bg-white rounded-lg border-solid border-gray-400 border min-w-48 w-1/2 h-12 py-2" required/>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>
+
+
