@@ -1,8 +1,8 @@
+@charset "UTF-8";
 
 @import url(../src/output.css);
 @import url('https://fonts.googleapis.com/css2?family=Caladea:ital,wght@0,400;0,700;1,400;1,700&family=Calistoga&family=League+Spartan:wght@100..900&display=swap');
 
-@charset "UTF-8";
 
 .caladea {
   font-family: "Caladea", sans-serif;
@@ -14,4 +14,17 @@
 
 .calistoga {
   font-family: "Calistoga", sans-serif;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+}
+
+aside {
+  flex: 0 0 auto; /* This will make the sidebar's width not grow or shrink */
+}
+
+div.ml-48 {
+  flex: 1 0 auto; /* This will make the main content take up the rest of the space */
 }
