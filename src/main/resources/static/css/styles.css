@@ -16,15 +16,3 @@
   font-family: "Calistoga", sans-serif;
 }
 
-body {
-  display: flex;
-  min-height: 100vh;
-}
-
-aside {
-  flex: 0 0 auto; /* This will make the sidebar's width not grow or shrink */
-}
-
-div.ml-48 {
-  flex: 1 0 auto; /* This will make the main content take up the rest of the space */
-}
